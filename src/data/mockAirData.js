@@ -1,0 +1,1563 @@
+// Benchmark urban air quality data for BreatheBack
+// Clearly labeled as representative simulation benchmark data for research and decision modeling.
+// Stations and diurnal profiles are grounded in typical municipal monitoring networks.
+
+export const BENCHMARK_CITIES = {
+  delhi: {
+    id: "delhi",
+    name: "Delhi (NCR)",
+    country: "India",
+    region: "Northern Plains",
+    climate: "Subtropical Semi-Arid",
+    coords: { lat: 28.6139, lng: 77.2090 },
+    defaultZoom: 11,
+    aqi: 285,
+    status: "Very Poor",
+    primaryPollutant: "PM2.5",
+    dataSource: "Central Pollution Control Board (CPCB) Station Network (Sample Benchmark)",
+    lastUpdated: "Simulated Diurnal Telemetry (Nov 2026)",
+    pollutants: {
+      pm25: 188, // ug/m3
+      pm10: 295, // ug/m3
+      no2: 68,   // ppb
+      o3: 32,    // ppb
+      co: 2.1,   // ppm
+      so2: 18    // ppb
+    },
+    weather: {
+      temp: 22,
+      humidity: 64,
+      windSpeed: 6.5,
+      windDirection: "NW",
+      condition: "Hazy Sun",
+      inversionRisk: "High (morning & night ground thermal inversion)"
+    },
+    sources: [
+      { name: "Vehicular Tailpipe Exhaust", percentage: 38 },
+      { name: "Biomass & Agricultural Burning", percentage: 24 },
+      { name: "Road Dust & Construction Silt", percentage: 22 },
+      { name: "Industrial & Waste Combustion", percentage: 16 }
+    ],
+    // Available monitoring stations in Delhi
+    stations: [
+      {
+        id: "del-asola",
+        name: "Asola Bhatti Sanctuary",
+        area: "South Delhi Green Belt",
+        lat: 28.4900,
+        lng: 77.2400,
+        aqi: 82,
+        status: "Satisfactory",
+        primaryPollutant: "PM2.5",
+        pm25: 28,
+        pm10: 64,
+        no2: 24,
+        stationType: "Protected Forest & Ecological Buffer",
+        dataSource: "CPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "del-lodhi-road",
+        name: "Lodhi Gardens (IMD)",
+        area: "Central Delhi",
+        lat: 28.5910,
+        lng: 77.2210,
+        aqi: 145,
+        status: "Moderate",
+        primaryPollutant: "PM2.5",
+        pm25: 54,
+        pm10: 112,
+        no2: 38,
+        stationType: "Urban Green & Heritage Background",
+        dataSource: "IMD Weather Station (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "del-mandir-marg",
+        name: "Mandir Marg",
+        area: "Central Residential",
+        lat: 28.6340,
+        lng: 77.2010,
+        aqi: 195,
+        status: "Moderate",
+        primaryPollutant: "PM2.5",
+        pm25: 72,
+        pm10: 155,
+        no2: 46,
+        stationType: "Urban Residential Background",
+        dataSource: "CPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "del-igi-airport",
+        name: "IGI Airport (T3)",
+        area: "Southwest Delhi",
+        lat: 28.5562,
+        lng: 77.1000,
+        aqi: 245,
+        status: "Poor",
+        primaryPollutant: "PM2.5",
+        pm25: 98,
+        pm10: 195,
+        no2: 58,
+        stationType: "Aviation & Highway Corridor",
+        dataSource: "CPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "del-rk-puram",
+        name: "R.K. Puram Sector 8",
+        area: "South Delhi",
+        lat: 28.5660,
+        lng: 77.1767,
+        aqi: 285,
+        status: "Poor",
+        primaryPollutant: "PM2.5",
+        pm25: 128,
+        pm10: 240,
+        no2: 66,
+        stationType: "High Density Residential Corridor",
+        dataSource: "CPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "del-anand-vihar",
+        name: "Anand Vihar ISBT",
+        area: "East Delhi",
+        lat: 28.6469,
+        lng: 77.3160,
+        aqi: 345,
+        status: "Very Poor",
+        primaryPollutant: "PM2.5",
+        pm25: 182,
+        pm10: 310,
+        no2: 84,
+        stationType: "Interstate Transit & Bus Terminus",
+        dataSource: "CPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "del-jahangirpuri",
+        name: "Jahangirpuri Industrial",
+        area: "North Delhi Industrial Belt",
+        lat: 28.7280,
+        lng: 77.1680,
+        aqi: 412,
+        status: "Severe",
+        primaryPollutant: "PM2.5",
+        pm25: 260,
+        pm10: 420,
+        no2: 98,
+        stationType: "Heavy Industrial & Freight Bypass",
+        dataSource: "DPCC Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      }
+    ],
+    hourly: [
+      { hour: "00:00", aqi: 295, pm25: 198, no2: 52, o3: 15, label: "Night Inversion" },
+      { hour: "01:00", aqi: 302, pm25: 205, no2: 50, o3: 14, label: "Night Inversion" },
+      { hour: "02:00", aqi: 310, pm25: 212, no2: 48, o3: 12, label: "Trapped Boundary Layer" },
+      { hour: "03:00", aqi: 315, pm25: 218, no2: 45, o3: 11, label: "Peak Nocturnal Inversion" },
+      { hour: "04:00", aqi: 318, pm25: 220, no2: 46, o3: 12, label: "Peak Inversion" },
+      { hour: "05:00", aqi: 310, pm25: 214, no2: 54, o3: 14, label: "Early Fleet Ignition" },
+      { hour: "06:00", aqi: 325, pm25: 228, no2: 72, o3: 16, label: "Morning Commute Spike" },
+      { hour: "07:00", aqi: 345, pm25: 245, no2: 88, o3: 19, label: "Rush Hour Peak" },
+      { hour: "08:00", aqi: 338, pm25: 236, no2: 92, o3: 24, label: "Peak Surface Traffic" },
+      { hour: "09:00", aqi: 310, pm25: 212, no2: 85, o3: 31, label: "Boundary Layer Ascends" },
+      { hour: "10:00", aqi: 275, pm25: 180, no2: 70, o3: 38, label: "Convective Mixing Starts" },
+      { hour: "11:00", aqi: 240, pm25: 152, no2: 58, o3: 45, label: "Atmospheric Dilution" },
+      { hour: "12:00", aqi: 210, pm25: 130, no2: 48, o3: 52, label: "Midday Minimum Period" },
+      { hour: "13:00", aqi: 195, pm25: 118, no2: 42, o3: 56, label: "Daily Low Period" },
+      { hour: "14:00", aqi: 190, pm25: 114, no2: 44, o3: 58, label: "Peak Solar Mixing" },
+      { hour: "15:00", aqi: 205, pm25: 125, no2: 50, o3: 54, label: "Wind Eases" },
+      { hour: "16:00", aqi: 225, pm25: 142, no2: 64, o3: 46, label: "Pre-Rush Building" },
+      { hour: "17:00", aqi: 260, pm25: 170, no2: 79, o3: 38, label: "Evening Rush Hour" },
+      { hour: "18:00", aqi: 290, pm25: 195, no2: 91, o3: 29, label: "Evening Traffic Peak" },
+      { hour: "19:00", aqi: 315, pm25: 215, no2: 95, o3: 22, label: "Surface Cooling Traps" },
+      { hour: "20:00", aqi: 320, pm25: 220, no2: 88, o3: 18, label: "Inversion Layer Re-forms" },
+      { hour: "21:00", aqi: 305, pm25: 208, no2: 74, o3: 16, label: "Heavy Freight Transit" },
+      { hour: "22:00", aqi: 298, pm25: 202, no2: 66, o3: 15, label: "Nocturnal Cooling" },
+      { hour: "23:00", aqi: 292, pm25: 195, no2: 58, o3: 15, label: "Night Inversion" }
+    ],
+    diurnalAnalysis: "Solar heating expands the atmospheric boundary layer between ~12:30 PM - 3:30 PM, temporarily diluting particulate density relative to morning and night peaks. This trend is driven by planetary boundary layer height, not a sudden drop in regional emissions.",
+    ventilationTimingNote: "Short cross-ventilation purge is most favorable during early afternoon solar mixing, followed by mechanical indoor HEPA operation."
+  },
+
+
+  tamil_nadu: {
+    id: "tamil_nadu",
+    name: "Tamil Nadu (State)",
+    country: "India",
+    region: "Southern Peninsula / Coromandel & Western Ghats",
+    climate: "Tropical Coastal & Semi-Arid",
+    coords: { lat: 11.1271, lng: 78.6569 },
+    defaultZoom: 7,
+    isState: true,
+    aqi: 88,
+    status: "Satisfactory",
+    primaryPollutant: "PM2.5",
+    dataSource: "Central Pollution Control Board (CPCB) & TNPCB (Sample Benchmark)",
+    lastUpdated: "Regional State Telemetry Archive (Nov 2026)",
+    pollutants: {
+      pm25: 38,
+      pm10: 74,
+      no2: 32,
+      o3: 36,
+      co: 0.8,
+      so2: 12
+    },
+    weather: {
+      temp: 29,
+      humidity: 72,
+      windSpeed: 12.4,
+      windDirection: "NE",
+      condition: "Coastal Breeze & Scattered Clouds",
+      inversionRisk: "Low (active coastal maritime ventilation & thermal mixing)"
+    },
+    sources: [
+      { name: "Urban Transport & Freight Corridors", percentage: 36 },
+      { name: "Textile, Foundry & Chemical Manufacturing", percentage: 30 },
+      { name: "Biomass & Rural Cooking", percentage: 18 },
+      { name: "Windblown Coastal & Agricultural Dust", percentage: 16 }
+    ],
+    stations: [
+      {
+        id: "tn-ooty",
+        name: "Ooty Botanical Gardens",
+        area: "Nilgiris Biosphere",
+        lat: 11.4102,
+        lng: 76.6950,
+        aqi: 32,
+        status: "Good",
+        primaryPollutant: "PM2.5",
+        pm25: 8,
+        pm10: 18,
+        no2: 6,
+        stationType: "High Altitude Ecological Baseline",
+        dataSource: "CPCB Station Network (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "tn-kodaikanal",
+        name: "Kodaikanal Lake Ridge",
+        area: "Dindigul Hills",
+        lat: 10.2381,
+        lng: 77.4892,
+        aqi: 42,
+        status: "Good",
+        primaryPollutant: "Ozone (O3)",
+        pm25: 12,
+        pm10: 24,
+        no2: 8,
+        stationType: "Ecological Sanctuary Baseline",
+        dataSource: "CPCB Station Network (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "tn-chennai-velachery",
+        name: "Chennai Velachery",
+        area: "South Chennai",
+        lat: 12.9815,
+        lng: 80.2180,
+        aqi: 48,
+        status: "Good",
+        primaryPollutant: "PM2.5",
+        pm25: 18,
+        pm10: 42,
+        no2: 16,
+        stationType: "Coastal Residential Background",
+        dataSource: "TNPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "tn-cbe-peelamedu",
+        name: "Coimbatore Peelamedu",
+        area: "Coimbatore East",
+        lat: 11.0315,
+        lng: 77.0175,
+        aqi: 68,
+        status: "Satisfactory",
+        primaryPollutant: "PM2.5",
+        pm25: 32,
+        pm10: 58,
+        no2: 24,
+        stationType: "Educational & Sub-Urban Background",
+        dataSource: "CPCB Station Network (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "tn-trichy",
+        name: "Tiruchirappalli Srirangam",
+        area: "Cauvery River Belt",
+        lat: 10.8622,
+        lng: 78.6925,
+        aqi: 74,
+        status: "Satisfactory",
+        primaryPollutant: "PM2.5",
+        pm25: 36,
+        pm10: 64,
+        no2: 22,
+        stationType: "Riverine Heritage Zone",
+        dataSource: "TNPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "tn-madurai",
+        name: "Madurai Periyar Bus Stand",
+        area: "Central Madurai",
+        lat: 9.9174,
+        lng: 78.1182,
+        aqi: 88,
+        status: "Satisfactory",
+        primaryPollutant: "PM10",
+        pm25: 42,
+        pm10: 76,
+        no2: 32,
+        stationType: "Transit & Commercial Hub",
+        dataSource: "CPCB Station Network (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "tn-salem",
+        name: "Salem Steel Plant Corridor",
+        area: "Salem Industrial",
+        lat: 11.6643,
+        lng: 78.1460,
+        aqi: 135,
+        status: "Moderate",
+        primaryPollutant: "PM10",
+        pm25: 58,
+        pm10: 112,
+        no2: 44,
+        stationType: "Metallurgical & Highway Corridor",
+        dataSource: "TNPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "tn-tiruppur",
+        name: "Tiruppur Kumaran Road",
+        area: "Textile Processing Cluster",
+        lat: 11.1085,
+        lng: 77.3411,
+        aqi: 162,
+        status: "Moderate",
+        primaryPollutant: "PM2.5",
+        pm25: 66,
+        pm10: 124,
+        no2: 52,
+        stationType: "Industrial Manufacturing Zone",
+        dataSource: "CPCB Station Network (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "tn-thoothukudi",
+        name: "Thoothukudi Harbor & Thermal Hub",
+        area: "Gulf of Mannar Coast",
+        lat: 8.7642,
+        lng: 78.1348,
+        aqi: 215,
+        status: "Poor",
+        primaryPollutant: "SO2",
+        pm25: 82,
+        pm10: 165,
+        no2: 60,
+        stationType: "Port & Power Utility Corridor",
+        dataSource: "CPCB Station Network (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "tn-manali",
+        name: "Manali Petrochemical Belt",
+        area: "North Chennai Industrial",
+        lat: 13.1670,
+        lng: 80.2580,
+        aqi: 310,
+        status: "Very Poor",
+        primaryPollutant: "PM2.5",
+        pm25: 138,
+        pm10: 240,
+        no2: 86,
+        stationType: "Petrochemical & Heavy Refining Corridor",
+        dataSource: "CPCB Station Network (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      }
+    ],
+    hourly: [
+      { hour: "00:00", aqi: 72, pm25: 28, no2: 24, o3: 16, label: "Gentle Land Breeze" },
+      { hour: "01:00", aqi: 70, pm25: 26, no2: 22, o3: 15, label: "Night Dilution" },
+      { hour: "02:00", aqi: 68, pm25: 25, no2: 20, o3: 14, label: "Stable Baseline" },
+      { hour: "03:00", aqi: 66, pm25: 24, no2: 19, o3: 14, label: "Night Minimum" },
+      { hour: "04:00", aqi: 68, pm25: 25, no2: 22, o3: 15, label: "Pre-Dawn Air" },
+      { hour: "05:00", aqi: 74, pm25: 29, no2: 28, o3: 18, label: "Early Freight" },
+      { hour: "06:00", aqi: 86, pm25: 36, no2: 36, o3: 20, label: "Morning Commute Onset" },
+      { hour: "07:00", aqi: 102, pm25: 45, no2: 44, o3: 24, label: "Rush Hour Peak" },
+      { hour: "08:00", aqi: 108, pm25: 48, no2: 48, o3: 28, label: "Morning Surface Congestion" },
+      { hour: "09:00", aqi: 98, pm25: 42, no2: 40, o3: 32, label: "Solar Warming Initiates" },
+      { hour: "10:00", aqi: 88, pm25: 37, no2: 34, o3: 38, label: "Convective Uplift" },
+      { hour: "11:00", aqi: 80, pm25: 32, no2: 28, o3: 42, label: "Sea Breeze Penetrates Inland" },
+      { hour: "12:00", aqi: 74, pm25: 28, no2: 24, o3: 46, label: "Optimal Ventilation Window" },
+      { hour: "13:00", aqi: 70, pm25: 26, no2: 22, o3: 48, label: "Daily Clearest Window" },
+      { hour: "14:00", aqi: 72, pm25: 27, no2: 23, o3: 47, label: "Active Marine Mixing" },
+      { hour: "15:00", aqi: 78, pm25: 30, no2: 26, o3: 44, label: "Afternoon Baseline" },
+      { hour: "16:00", aqi: 85, pm25: 35, no2: 32, o3: 38, label: "Pre-Rush Building" },
+      { hour: "17:00", aqi: 98, pm25: 44, no2: 42, o3: 32, label: "Evening Rush Hour" },
+      { hour: "18:00", aqi: 104, pm25: 46, no2: 46, o3: 26, label: "Evening Traffic Peak" },
+      { hour: "19:00", aqi: 96, pm25: 41, no2: 39, o3: 22, label: "Post-Rush Easing" },
+      { hour: "20:00", aqi: 88, pm25: 37, no2: 33, o3: 19, label: "Cooling Ground Layer" },
+      { hour: "21:00", aqi: 82, pm25: 34, no2: 30, o3: 18, label: "Highway Freight Corridor" },
+      { hour: "22:00", aqi: 78, pm25: 31, no2: 27, o3: 17, label: "Night Transition" },
+      { hour: "23:00", aqi: 74, pm25: 29, no2: 25, o3: 16, label: "Land Breeze Baseline" }
+    ],
+    diurnalAnalysis: "Maritime sea breezes and high solar insolation maintain good convective boundary layer mixing across the Tamil Nadu corridor. Air quality is notably cleaner than inland northern river basins, with localized elevations concentrated around heavy transit corridors, textile dyeing clusters, and thermal power terminals.",
+    ventilationTimingNote: "Midday to early afternoon (11:30 AM - 3:00 PM) benefits strongly from the active sea breeze front, providing optimal outdoor air purge timing."
+  },
+
+  chennai: {
+    id: "chennai",
+    name: "Chennai",
+    country: "India",
+    region: "Coromandel Coastal Plain, Tamil Nadu",
+    climate: "Tropical Wet and Dry",
+    coords: { lat: 13.0827, lng: 80.2707 },
+    defaultZoom: 12,
+    aqi: 76,
+    status: "Satisfactory",
+    primaryPollutant: "PM2.5",
+    dataSource: "Tamil Nadu Pollution Control Board (TNPCB) & CPCB (Sample Benchmark)",
+    lastUpdated: "Simulated Diurnal Telemetry (Nov 2026)",
+    pollutants: {
+      pm25: 32,
+      pm10: 66,
+      no2: 30,
+      o3: 34,
+      co: 0.7,
+      so2: 10
+    },
+    weather: {
+      temp: 30,
+      humidity: 78,
+      windSpeed: 14.2,
+      windDirection: "ENE",
+      condition: "Tropical Sea Breeze & Sun",
+      inversionRisk: "Very Low (persistent Bay of Bengal sea breeze)"
+    },
+    sources: [
+      { name: "Vehicular Traffic & Arterial Corridors", percentage: 44 },
+      { name: "North Chennai Industrial & Port Operations", percentage: 28 },
+      { name: "Road Silt & Coastal Dust", percentage: 16 },
+      { name: "Domestic & Commercial Energy", percentage: 12 }
+    ],
+    stations: [
+      {
+        id: "chn-besant-nagar",
+        name: "Besant Nagar Beach & Promenade",
+        area: "South Coastal Chennai",
+        lat: 12.9990,
+        lng: 80.2710,
+        aqi: 42,
+        status: "Good",
+        primaryPollutant: "PM2.5",
+        pm25: 14,
+        pm10: 36,
+        no2: 14,
+        stationType: "Coastal Recreation & Sea Breeze Front",
+        dataSource: "TNPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "chn-guindy-park",
+        name: "Guindy National Park & IIT Campus",
+        area: "Central-South Urban Forest",
+        lat: 13.0067,
+        lng: 80.2206,
+        aqi: 55,
+        status: "Satisfactory",
+        primaryPollutant: "PM2.5",
+        pm25: 22,
+        pm10: 48,
+        no2: 18,
+        stationType: "Protected Urban Forest Canopy",
+        dataSource: "TNPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "chn-anna-nagar",
+        name: "Anna Nagar West Residential",
+        area: "Northwest Residential",
+        lat: 13.0878,
+        lng: 80.2088,
+        aqi: 84,
+        status: "Satisfactory",
+        primaryPollutant: "PM2.5",
+        pm25: 38,
+        pm10: 72,
+        no2: 30,
+        stationType: "Urban Residential Avenue",
+        dataSource: "CPCB Station Network (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "chn-t-nagar",
+        name: "T. Nagar Panagal Park",
+        area: "Central Commercial",
+        lat: 13.0418,
+        lng: 80.2341,
+        aqi: 142,
+        status: "Moderate",
+        primaryPollutant: "PM10",
+        pm25: 56,
+        pm10: 115,
+        no2: 48,
+        stationType: "High Density Retail & Commercial Corridor",
+        dataSource: "TNPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "chn-central-bus",
+        name: "Central Bus Terminus Broadway",
+        area: "Central Transit Hub",
+        lat: 13.0827,
+        lng: 80.2755,
+        aqi: 220,
+        status: "Poor",
+        primaryPollutant: "NO2",
+        pm25: 84,
+        pm10: 168,
+        no2: 68,
+        stationType: "Diesel Transit Canyon & Rail Terminal",
+        dataSource: "CPCB Station Network (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "chn-manali-petrochem",
+        name: "Manali Petrochemical Belt",
+        area: "North Chennai Industrial",
+        lat: 13.1670,
+        lng: 80.2580,
+        aqi: 315,
+        status: "Very Poor",
+        primaryPollutant: "PM2.5",
+        pm25: 142,
+        pm10: 245,
+        no2: 88,
+        stationType: "Petrochemical & Heavy Industrial Zone",
+        dataSource: "TNPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      }
+    ],
+    hourly: [
+      { hour: "00:00", aqi: 64, pm25: 25, no2: 20, o3: 15, label: "Land Breeze Cleansing" },
+      { hour: "01:00", aqi: 62, pm25: 24, no2: 18, o3: 14, label: "Night Minimum" },
+      { hour: "02:00", aqi: 60, pm25: 23, no2: 17, o3: 13, label: "Clean Marine Boundary" },
+      { hour: "03:00", aqi: 58, pm25: 22, no2: 16, o3: 13, label: "Night Baseline" },
+      { hour: "04:00", aqi: 62, pm25: 24, no2: 19, o3: 14, label: "Pre-Dawn Hours" },
+      { hour: "05:00", aqi: 68, pm25: 27, no2: 24, o3: 16, label: "Early Fishing & Freight" },
+      { hour: "06:00", aqi: 78, pm25: 32, no2: 32, o3: 18, label: "Morning Traffic Build" },
+      { hour: "07:00", aqi: 92, pm25: 40, no2: 42, o3: 22, label: "Morning Rush Hour" },
+      { hour: "08:00", aqi: 96, pm25: 42, no2: 45, o3: 26, label: "Peak Arterial Congestion" },
+      { hour: "09:00", aqi: 86, pm25: 36, no2: 36, o3: 30, label: "Sea Breeze Starts" },
+      { hour: "10:00", aqi: 76, pm25: 31, no2: 28, o3: 36, label: "Marine Dispersion Active" },
+      { hour: "11:00", aqi: 68, pm25: 26, no2: 22, o3: 40, label: "Peak Marine Ventilation" },
+      { hour: "12:00", aqi: 62, pm25: 23, no2: 19, o3: 44, label: "Cleanest Daily Window" },
+      { hour: "13:00", aqi: 60, pm25: 22, no2: 18, o3: 45, label: "Lowest Daily PM2.5" },
+      { hour: "14:00", aqi: 63, pm25: 24, no2: 20, o3: 44, label: "Sustained Onshore Flow" },
+      { hour: "15:00", aqi: 68, pm25: 27, no2: 23, o3: 40, label: "Afternoon Moderate Window" },
+      { hour: "16:00", aqi: 75, pm25: 31, no2: 29, o3: 34, label: "Pre-Rush Transition" },
+      { hour: "17:00", aqi: 88, pm25: 38, no2: 38, o3: 28, label: "Evening Rush Hour" },
+      { hour: "18:00", aqi: 94, pm25: 41, no2: 42, o3: 24, label: "Peak Evening Traffic" },
+      { hour: "19:00", aqi: 85, pm25: 36, no2: 34, o3: 20, label: "Traffic Eases" },
+      { hour: "20:00", aqi: 76, pm25: 31, no2: 28, o3: 18, label: "Night Sea Breeze" },
+      { hour: "21:00", aqi: 72, pm25: 29, no2: 25, o3: 17, label: "Port Freight Transit" },
+      { hour: "22:00", aqi: 68, pm25: 27, no2: 23, o3: 16, label: "Land Breeze Transition" },
+      { hour: "23:00", aqi: 65, pm25: 26, no2: 21, o3: 15, label: "Clean Night Baseline" }
+    ],
+    diurnalAnalysis: "Chennai enjoys strong onshore sea breezes arriving between 10:30 AM and 4:30 PM, which scour automotive emissions and significantly reduce particulate concentrations compared to land-locked cities. Air quality is predominantly 'Good' to 'Satisfactory', with localized excursions to 'Poor' confined to transit bottlenecks like Broadway and petrochemical refining corridors in Manali.",
+    ventilationTimingNote: "Midday windows (11:00 AM - 2:30 PM) provide clean marine air ideal for cross-ventilation in southern and coastal neighborhoods."
+  },
+
+  coimbatore: {
+    id: "coimbatore",
+    name: "Coimbatore",
+    country: "India",
+    region: "Kongu Nadu / Western Ghats Foothills, Tamil Nadu",
+    climate: "Tropical Savanna / Rain Shadow",
+    coords: { lat: 11.0168, lng: 76.9558 },
+    defaultZoom: 12,
+    aqi: 65,
+    status: "Satisfactory",
+    primaryPollutant: "PM2.5",
+    dataSource: "Tamil Nadu Pollution Control Board (TNPCB) (Sample Benchmark)",
+    lastUpdated: "Simulated Diurnal Telemetry (Nov 2026)",
+    pollutants: {
+      pm25: 28,
+      pm10: 56,
+      no2: 24,
+      o3: 32,
+      co: 0.6,
+      so2: 9
+    },
+    weather: {
+      temp: 27,
+      humidity: 62,
+      windSpeed: 10.8,
+      windDirection: "W",
+      condition: "Pleasant Foothill Breeze",
+      inversionRisk: "Low (Palghat Gap channel wind dispersion)"
+    },
+    sources: [
+      { name: "Textile Mills & Foundry Operations", percentage: 38 },
+      { name: "Urban Commuter Transport", percentage: 34 },
+      { name: "Quarrying & Road Construction Silt", percentage: 16 },
+      { name: "Biomass & Agricultural Dust", percentage: 12 }
+    ],
+    stations: [
+      {
+        id: "cbe-marudhamalai",
+        name: "Marudhamalai Foothills",
+        area: "Western Ghats Eco-Zone",
+        lat: 11.0378,
+        lng: 76.8770,
+        aqi: 38,
+        status: "Good",
+        primaryPollutant: "PM2.5",
+        pm25: 11,
+        pm10: 26,
+        no2: 12,
+        stationType: "Forest Foothill Ecological Sanctuary",
+        dataSource: "CPCB Station Network (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "cbe-race-course",
+        name: "Race Course Promenade",
+        area: "Central Coimbatore Green Avenue",
+        lat: 11.0062,
+        lng: 76.9740,
+        aqi: 62,
+        status: "Satisfactory",
+        primaryPollutant: "PM2.5",
+        pm25: 26,
+        pm10: 52,
+        no2: 20,
+        stationType: "Tree-Lined Urban Recreational Belt",
+        dataSource: "TNPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "cbe-peelamedu-airport",
+        name: "Peelamedu Airport Road",
+        area: "Eastern Commercial & Tech Corridor",
+        lat: 11.0315,
+        lng: 77.0175,
+        aqi: 92,
+        status: "Satisfactory",
+        primaryPollutant: "PM2.5",
+        pm25: 41,
+        pm10: 76,
+        no2: 32,
+        stationType: "Mixed Commercial & IT Park Corridor",
+        dataSource: "CPCB Station Network (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "cbe-gandhipuram",
+        name: "Gandhipuram Central Bus Stand",
+        area: "Central Bus & Commercial Hub",
+        lat: 11.0180,
+        lng: 76.9680,
+        aqi: 148,
+        status: "Moderate",
+        primaryPollutant: "PM10",
+        pm25: 62,
+        pm10: 122,
+        no2: 46,
+        stationType: "Dense Commuter Transit Hub",
+        dataSource: "TNPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      },
+      {
+        id: "cbe-kurichi",
+        name: "Kurichi Industrial Estate",
+        area: "South Coimbatore Industrial",
+        lat: 10.9420,
+        lng: 76.9710,
+        aqi: 210,
+        status: "Poor",
+        primaryPollutant: "PM2.5",
+        pm25: 82,
+        pm10: 158,
+        no2: 58,
+        stationType: "Foundry & Heavy Engineering Belt",
+        dataSource: "TNPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+        isDemo: true
+      }
+    ],
+    hourly: [
+      { hour: "00:00", aqi: 56, pm25: 22, no2: 18, o3: 16, label: "Ghat Breeze Flush" },
+      { hour: "01:00", aqi: 54, pm25: 20, no2: 16, o3: 15, label: "Clean Night Air" },
+      { hour: "02:00", aqi: 52, pm25: 19, no2: 15, o3: 14, label: "Foothill Minimum" },
+      { hour: "03:00", aqi: 50, pm25: 18, no2: 14, o3: 14, label: "Good Air Baseline" },
+      { hour: "04:00", aqi: 52, pm25: 19, no2: 16, o3: 15, label: "Dawn Baseline" },
+      { hour: "05:00", aqi: 58, pm25: 23, no2: 20, o3: 18, label: "Early Shift Travel" },
+      { hour: "06:00", aqi: 68, pm25: 28, no2: 26, o3: 20, label: "Morning Commute" },
+      { hour: "07:00", aqi: 82, pm25: 36, no2: 34, o3: 24, label: "Morning Traffic Spike" },
+      { hour: "08:00", aqi: 86, pm25: 38, no2: 37, o3: 28, label: "Arterial Congestion" },
+      { hour: "09:00", aqi: 76, pm25: 33, no2: 30, o3: 32, label: "Ghat Winds Strengthen" },
+      { hour: "10:00", aqi: 66, pm25: 27, no2: 24, o3: 36, label: "Palghat Gap Ventilation" },
+      { hour: "11:00", aqi: 58, pm25: 23, no2: 20, o3: 40, label: "Optimal Ventilation" },
+      { hour: "12:00", aqi: 52, pm25: 20, no2: 17, o3: 42, label: "Daily Clearest Window" },
+      { hour: "13:00", aqi: 50, pm25: 18, no2: 16, o3: 42, label: "Daily Clearest Window" },
+      { hour: "14:00", aqi: 54, pm25: 21, no2: 18, o3: 40, label: "Active Foothill Mixing" },
+      { hour: "15:00", aqi: 60, pm25: 24, no2: 21, o3: 36, label: "Afternoon Baseline" },
+      { hour: "16:00", aqi: 68, pm25: 28, no2: 26, o3: 32, label: "Pre-Rush Building" },
+      { hour: "17:00", aqi: 78, pm25: 34, no2: 32, o3: 28, label: "Evening Rush Hour" },
+      { hour: "18:00", aqi: 84, pm25: 37, no2: 36, o3: 24, label: "Peak Evening Traffic" },
+      { hour: "19:00", aqi: 74, pm25: 32, no2: 29, o3: 21, label: "Traffic Dissipating" },
+      { hour: "20:00", aqi: 66, pm25: 28, no2: 24, o3: 19, label: "Foothill Cooling" },
+      { hour: "21:00", aqi: 62, pm25: 25, no2: 21, o3: 18, label: "Freight Transit" },
+      { hour: "22:00", aqi: 58, pm25: 23, no2: 19, o3: 17, label: "Night Baseline" },
+      { hour: "23:00", aqi: 56, pm25: 22, no2: 18, o3: 16, label: "Night Baseline" }
+    ],
+    diurnalAnalysis: "Coimbatore benefits from the Palghat Gap — a natural 30 km geological break in the Western Ghats mountain range that channels continuous westerly winds across the city. This provides superior natural air ventilation compared to closed valley cities.",
+    ventilationTimingNote: "Midday windows (11:00 AM - 2:00 PM) leverage mountain-channel winds for clean indoor flushes."
+  },
+
+  los_angeles: {
+    id: "los_angeles",
+    name: "Los Angeles",
+    country: "United States",
+    region: "Southern California Basin",
+    climate: "Mediterranean Coastal Basin",
+    coords: { lat: 34.0522, lng: -118.2437 },
+    defaultZoom: 11,
+    aqi: 118,
+    status: "Unhealthy for Sensitive Groups",
+    primaryPollutant: "Ozone (O3)",
+    dataSource: "South Coast Air Quality Management District (SCAQMD) (Sample Benchmark)",
+    lastUpdated: "Simulated Diurnal Telemetry (Nov 2026)",
+    pollutants: {
+      pm25: 24, // ug/m3
+      pm10: 48, // ug/m3
+      no2: 45,  // ppb
+      o3: 78,   // ppb
+      co: 0.8,  // ppm
+      so2: 4    // ppb
+    },
+    weather: {
+      temp: 26,
+      humidity: 42,
+      windSpeed: 11.2,
+      windDirection: "W-SW",
+      condition: "Sunny & Warm",
+      inversionRisk: "Moderate (coastal sea breeze pushes inland ozone build-up)"
+    },
+    sources: [
+      { name: "Highway Freight & Commuter Vehicles", percentage: 52 },
+      { name: "Port of LA & Logistics Operations", percentage: 21 },
+      { name: "Photochemical Smog Secondary Reactions", percentage: 17 },
+      { name: "Industrial Refining & Aviation", percentage: 10 }
+    ],
+    stations: [
+      {
+        id: "la-downtown",
+        name: "Downtown LA - N Main St",
+        area: "Central Los Angeles",
+        lat: 34.0665,
+        lng: -118.2268,
+        aqi: 108,
+        status: "Unhealthy for Sensitive Groups",
+        primaryPollutant: "Ozone (O3)",
+        pm25: 22,
+        pm10: 44,
+        no2: 48,
+        stationType: "Urban Core Background",
+        dataSource: "SCAQMD Station #087 (Sample Benchmark)"
+      },
+      {
+        id: "la-westside",
+        name: "West LA - VA Hospital",
+        area: "Westside / Coastal",
+        lat: 34.0531,
+        lng: -118.4552,
+        aqi: 74,
+        status: "Moderate",
+        primaryPollutant: "Ozone (O3)",
+        pm25: 15,
+        pm10: 28,
+        no2: 32,
+        stationType: "Coastal Urban Background",
+        dataSource: "SCAQMD Station #091 (Sample Benchmark)"
+      },
+      {
+        id: "la-long-beach",
+        name: "Long Beach - Route 710",
+        area: "South Bay & Port Corridor",
+        lat: 33.7845,
+        lng: -118.2120,
+        aqi: 125,
+        status: "Unhealthy for Sensitive Groups",
+        primaryPollutant: "NO2 & PM2.5",
+        pm25: 28,
+        pm10: 55,
+        no2: 65,
+        stationType: "Heavy Freight & Port Roadside",
+        dataSource: "SCAQMD Station #072 (Sample Benchmark)"
+      },
+      {
+        id: "la-pasadena",
+        name: "Pasadena - S Wilson Ave",
+        area: "San Gabriel Valley",
+        lat: 34.1365,
+        lng: -118.1224,
+        aqi: 132,
+        status: "Unhealthy for Sensitive Groups",
+        primaryPollutant: "Ozone (O3)",
+        pm25: 24,
+        pm10: 46,
+        no2: 36,
+        stationType: "Inland Valley Basin (Ozone Trap)",
+        dataSource: "SCAQMD Station #088 (Sample Benchmark)"
+      },
+      {
+        id: "la-reseda",
+        name: "Reseda - San Fernando Valley",
+        area: "San Fernando Valley",
+        lat: 34.1992,
+        lng: -118.5328,
+        aqi: 115,
+        status: "Unhealthy for Sensitive Groups",
+        primaryPollutant: "Ozone (O3)",
+        pm25: 21,
+        pm10: 42,
+        no2: 38,
+        stationType: "Suburban Basin",
+        dataSource: "SCAQMD Station #074 (Sample Benchmark)"
+      }
+    ],
+    hourly: [
+      { hour: "00:00", aqi: 45, pm25: 12, no2: 18, o3: 15, label: "Clean Ocean Marine Air" },
+      { hour: "01:00", aqi: 42, pm25: 11, no2: 15, o3: 14, label: "Coastal Night Flow" },
+      { hour: "02:00", aqi: 40, pm25: 10, no2: 14, o3: 12, label: "Minimal Traffic" },
+      { hour: "03:00", aqi: 38, pm25: 9,  no2: 12, o3: 11, label: "Nocturnal Baseline" },
+      { hour: "04:00", aqi: 42, pm25: 11, no2: 18, o3: 12, label: "Early Freight Movement" },
+      { hour: "05:00", aqi: 52, pm25: 15, no2: 30, o3: 15, label: "Freeway Flow Begins" },
+      { hour: "06:00", aqi: 68, pm25: 20, no2: 48, o3: 20, label: "Morning NO2 Build-up" },
+      { hour: "07:00", aqi: 82, pm25: 25, no2: 62, o3: 26, label: "Morning Commute Surge" },
+      { hour: "08:00", aqi: 88, pm25: 27, no2: 65, o3: 35, label: "Photochemical Reaction Initiates" },
+      { hour: "09:00", aqi: 92, pm25: 25, no2: 54, o3: 48, label: "Ozone Formation Rises" },
+      { hour: "10:00", aqi: 98, pm25: 23, no2: 44, o3: 60, label: "UV Solar Cooking" },
+      { hour: "11:00", aqi: 105, pm25: 22, no2: 36, o3: 68, label: "Ozone Accumulation" },
+      { hour: "12:00", aqi: 118, pm25: 21, no2: 32, o3: 75, label: "Photochemical Ozone Peak" },
+      { hour: "13:00", aqi: 124, pm25: 22, no2: 30, o3: 82, label: "Peak Ground-Level Ozone" },
+      { hour: "14:00", aqi: 128, pm25: 23, no2: 31, o3: 84, label: "Peak Daily Ozone" },
+      { hour: "15:00", aqi: 120, pm25: 24, no2: 35, o3: 79, label: "Inland Basin Entrapment" },
+      { hour: "16:00", aqi: 110, pm25: 25, no2: 44, o3: 70, label: "Afternoon Commute Begins" },
+      { hour: "17:00", aqi: 98, pm25: 26, no2: 52, o3: 58, label: "Evening Traffic" },
+      { hour: "18:00", aqi: 85, pm25: 24, no2: 48, o3: 45, label: "Sunset Ozone Decay" },
+      { hour: "19:00", aqi: 72, pm25: 20, no2: 40, o3: 34, label: "Twilight Cooling" },
+      { hour: "20:00", aqi: 62, pm25: 18, no2: 32, o3: 26, label: "Sea Breeze Clearing" },
+      { hour: "21:00", aqi: 55, pm25: 15, no2: 26, o3: 22, label: "Evening Dilution" },
+      { hour: "22:00", aqi: 50, pm25: 14, no2: 22, o3: 18, label: "Low Traffic" },
+      { hour: "23:00", aqi: 48, pm25: 13, no2: 20, o3: 16, label: "Overnight Baseline" }
+    ],
+    diurnalAnalysis: "Unlike particulate-heavy winter climates, LA's signature challenge is photochemical Ozone (O3) catalyzed by UV sunlight between 1:00 PM - 4:30 PM. Morning hours (06:30 - 09:00 AM) exhibit lower photochemical stress before solar radiation peaks.",
+    ventilationTimingNote: "Early morning cross-ventilation (07:00 - 09:00 AM) captures marine air before UV photochemistry cooks nitrogen oxides into ground ozone."
+  },
+
+  london: {
+    id: "london",
+    name: "London",
+    country: "United Kingdom",
+    region: "Thames Valley",
+    climate: "Temperate Maritime",
+    coords: { lat: 51.5074, lng: -0.1278 },
+    defaultZoom: 11,
+    aqi: 68,
+    status: "Moderate",
+    primaryPollutant: "NO2 & PM2.5",
+    dataSource: "UK Automatic Urban and Rural Network (AURN / DEFRA) (Sample Benchmark)",
+    lastUpdated: "Simulated Diurnal Telemetry (Nov 2026)",
+    pollutants: {
+      pm25: 16, // ug/m3
+      pm10: 28, // ug/m3
+      no2: 38,  // ppb
+      o3: 24,   // ppb
+      co: 0.4,  // ppm
+      so2: 3    // ppb
+    },
+    weather: {
+      temp: 14,
+      humidity: 78,
+      windSpeed: 14.5,
+      windDirection: "SW",
+      condition: "Overcast & Breezy",
+      inversionRisk: "Low (active maritime dispersion)"
+    },
+    sources: [
+      { name: "Urban Transport (ULEZ regulated)", percentage: 44 },
+      { name: "Domestic Woodburners & Gas Boilers", percentage: 28 },
+      { name: "Construction & Non-Road Machinery", percentage: 18 },
+      { name: "Cross-Channel Regional Advection", percentage: 10 }
+    ],
+    stations: [
+      {
+        id: "lon-marylebone",
+        name: "Marylebone Road",
+        area: "City of Westminster",
+        lat: 51.5225,
+        lng: -0.1546,
+        aqi: 78,
+        status: "Moderate",
+        primaryPollutant: "NO2",
+        pm25: 19,
+        pm10: 32,
+        no2: 48,
+        stationType: "Kerbside Traffic Canyon",
+        dataSource: "London Air Quality Network (LAQN) (Sample Benchmark)"
+      },
+      {
+        id: "lon-north-kensington",
+        name: "North Kensington",
+        area: "Kensington and Chelsea",
+        lat: 51.5211,
+        lng: -0.2135,
+        aqi: 58,
+        status: "Moderate",
+        primaryPollutant: "PM2.5",
+        pm25: 14,
+        pm10: 22,
+        no2: 30,
+        stationType: "Urban Background Baseline",
+        dataSource: "AURN Defra Network (Sample Benchmark)"
+      },
+      {
+        id: "lon-bloomsbury",
+        name: "Bloomsbury - Russell Sq",
+        area: "Camden",
+        lat: 51.5223,
+        lng: -0.1257,
+        aqi: 64,
+        status: "Moderate",
+        primaryPollutant: "PM2.5 & NO2",
+        pm25: 15,
+        pm10: 25,
+        no2: 36,
+        stationType: "Central Urban Background",
+        dataSource: "AURN Defra Network (Sample Benchmark)"
+      },
+      {
+        id: "lon-greenwich",
+        name: "Greenwich Park",
+        area: "Royal Borough of Greenwich",
+        lat: 51.4769,
+        lng: -0.0005,
+        aqi: 46,
+        status: "Good",
+        primaryPollutant: "Ozone (O3)",
+        pm25: 10,
+        pm10: 18,
+        no2: 22,
+        stationType: "Suburban Parkland",
+        dataSource: "LAQN Greenwich (Sample Benchmark)"
+      },
+      {
+        id: "lon-bexley",
+        name: "Bexley - Suburban Thames",
+        area: "Bexley",
+        lat: 51.4549,
+        lng: 0.1278,
+        aqi: 52,
+        status: "Moderate",
+        primaryPollutant: "PM2.5",
+        pm25: 12,
+        pm10: 20,
+        no2: 26,
+        stationType: "Suburban Background",
+        dataSource: "AURN Defra Network (Sample Benchmark)"
+      }
+    ],
+    hourly: [
+      { hour: "00:00", aqi: 42, pm25: 10, no2: 18, o3: 20, label: "Good Maritime Air" },
+      { hour: "01:00", aqi: 38, pm25: 9,  no2: 15, o3: 21, label: "Night Clearing" },
+      { hour: "02:00", aqi: 36, pm25: 8,  no2: 13, o3: 22, label: "Clean Baseline" },
+      { hour: "03:00", aqi: 35, pm25: 8,  no2: 12, o3: 22, label: "Nocturnal Minimum" },
+      { hour: "04:00", aqi: 39, pm25: 9,  no2: 16, o3: 21, label: "Early Rail & Deliveries" },
+      { hour: "05:00", aqi: 48, pm25: 12, no2: 24, o3: 20, label: "Commercial Traffic Surge" },
+      { hour: "06:00", aqi: 62, pm25: 16, no2: 36, o3: 18, label: "Morning Rush Commute" },
+      { hour: "07:00", aqi: 75, pm25: 20, no2: 46, o3: 16, label: "Arterial Road Peak" },
+      { hour: "08:00", aqi: 82, pm25: 22, no2: 50, o3: 17, label: "Commute & School Run" },
+      { hour: "09:00", aqi: 76, pm25: 19, no2: 44, o3: 20, label: "Post-Rush Easing" },
+      { hour: "10:00", aqi: 65, pm25: 15, no2: 35, o3: 24, label: "Southwesterly Breeze Active" },
+      { hour: "11:00", aqi: 58, pm25: 13, no2: 30, o3: 28, label: "Convective Dilution" },
+      { hour: "12:00", aqi: 54, pm25: 12, no2: 28, o3: 30, label: "Midday Window" },
+      { hour: "13:00", aqi: 52, pm25: 11, no2: 26, o3: 31, label: "Lowest Daily Period" },
+      { hour: "14:00", aqi: 54, pm25: 12, no2: 27, o3: 30, label: "Midday Window" },
+      { hour: "15:00", aqi: 62, pm25: 14, no2: 32, o3: 28, label: "School Run Surge" },
+      { hour: "16:00", aqi: 70, pm25: 17, no2: 40, o3: 24, label: "Evening Inflow" },
+      { hour: "17:00", aqi: 78, pm25: 20, no2: 48, o3: 20, label: "Evening Rush Peak" },
+      { hour: "18:00", aqi: 74, pm25: 19, no2: 45, o3: 19, label: "Domestic Heating & Traffic" },
+      { hour: "19:00", aqi: 66, pm25: 16, no2: 38, o3: 20, label: "Gradual Easing" },
+      { hour: "20:00", aqi: 58, pm25: 14, no2: 30, o3: 21, label: "Moderate Air" },
+      { hour: "21:00", aqi: 52, pm25: 13, no2: 25, o3: 22, label: "Good Air" },
+      { hour: "22:00", aqi: 48, pm25: 11, no2: 22, o3: 21, label: "Good Air" },
+      { hour: "23:00", aqi: 44, pm25: 10, no2: 19, o3: 20, label: "Night Clearing" }
+    ],
+    diurnalAnalysis: "Breezy maritime winds over the Thames basin provide steady mechanical dispersion. Sharp localized spikes occur predominantly within 150m of arterial roads (e.g. Marylebone Road, A40) during 07:30 - 09:00 AM.",
+    ventilationTimingNote: "Midday hours (11:30 AM - 2:30 PM) offer favorable indoor flushing, avoiding road-facing facade exposure during school transit times."
+  },
+
+  beijing: {
+    id: "beijing",
+    name: "Beijing",
+    country: "China",
+    region: "North China Plain",
+    climate: "Monsoon Continental",
+    coords: { lat: 39.9042, lng: 116.4074 },
+    defaultZoom: 11,
+    aqi: 162,
+    status: "Unhealthy",
+    primaryPollutant: "PM2.5",
+    dataSource: "Beijing Municipal Ecological Environment Monitoring Center (Sample Benchmark)",
+    lastUpdated: "Simulated Diurnal Telemetry (Nov 2026)",
+    pollutants: {
+      pm25: 84, // ug/m3
+      pm10: 135,// ug/m3
+      no2: 52,  // ppb
+      o3: 28,   // ppb
+      co: 1.4,  // ppm
+      so2: 12   // ppb
+    },
+    weather: {
+      temp: 11,
+      humidity: 38,
+      windSpeed: 8.2,
+      windDirection: "NE",
+      condition: "Dry Haze",
+      inversionRisk: "Moderate to High (basin topography)"
+    },
+    sources: [
+      { name: "Regional Industrial Transport", percentage: 41 },
+      { name: "Vehicular Emissions & Diesel Freights", percentage: 32 },
+      { name: "Coal & District Energy Surrounds", percentage: 15 },
+      { name: "Construction Dust & Resuspension", percentage: 12 }
+    ],
+    stations: [
+      {
+        id: "bj-dongsi",
+        name: "Dongsi - Dongcheng",
+        area: "Central Beijing",
+        lat: 39.9289,
+        lng: 116.4170,
+        aqi: 165,
+        status: "Unhealthy",
+        primaryPollutant: "PM2.5",
+        pm25: 86,
+        pm10: 138,
+        no2: 54,
+        stationType: "Urban Cultural Core",
+        dataSource: "Beijing MEMC (Sample Benchmark)"
+      },
+      {
+        id: "bj-olympic",
+        name: "Olympic Forest Park",
+        area: "Chaoyang District",
+        lat: 40.0150,
+        lng: 116.3900,
+        aqi: 138,
+        status: "Unhealthy for Sensitive Groups",
+        primaryPollutant: "PM2.5",
+        pm25: 65,
+        pm10: 110,
+        no2: 38,
+        stationType: "Large Urban Canopy Park",
+        dataSource: "Beijing MEMC (Sample Benchmark)"
+      },
+      {
+        id: "bj-haidian",
+        name: "Haidian - Wanshouxigong",
+        area: "Haidian District",
+        lat: 39.9590,
+        lng: 116.2980,
+        aqi: 158,
+        status: "Unhealthy",
+        primaryPollutant: "PM2.5",
+        pm25: 80,
+        pm10: 128,
+        no2: 50,
+        stationType: "Tech & University Corridor",
+        dataSource: "Beijing MEMC (Sample Benchmark)"
+      },
+      {
+        id: "bj-tiantan",
+        name: "Tiantan - Temple of Heaven",
+        area: "Chongwen District",
+        lat: 39.8822,
+        lng: 116.4074,
+        aqi: 148,
+        status: "Unhealthy for Sensitive Groups",
+        primaryPollutant: "PM2.5",
+        pm25: 72,
+        pm10: 120,
+        no2: 44,
+        stationType: "Park Heritage Zone",
+        dataSource: "Beijing MEMC (Sample Benchmark)"
+      },
+      {
+        id: "bj-guanyuan",
+        name: "Guanyuan - Xicheng",
+        area: "West Beijing",
+        lat: 39.9330,
+        lng: 116.3530,
+        aqi: 172,
+        status: "Unhealthy",
+        primaryPollutant: "PM2.5",
+        pm25: 92,
+        pm10: 145,
+        no2: 58,
+        stationType: "Dense Commercial Center",
+        dataSource: "Beijing MEMC (Sample Benchmark)"
+      }
+    ],
+    hourly: [
+      { hour: "00:00", aqi: 175, pm25: 95, no2: 45, o3: 15, label: "Heavy Night Inflow" },
+      { hour: "01:00", aqi: 180, pm25: 98, no2: 44, o3: 14, label: "Inversion Layer" },
+      { hour: "02:00", aqi: 185, pm25: 102, no2: 42, o3: 12, label: "Inversion Layer" },
+      { hour: "03:00", aqi: 188, pm25: 105, no2: 40, o3: 11, label: "Peak Night Accumulation" },
+      { hour: "04:00", aqi: 182, pm25: 100, no2: 42, o3: 12, label: "Freight Transition" },
+      { hour: "05:00", aqi: 178, pm25: 96, no2: 48, o3: 14, label: "Early Traffic" },
+      { hour: "06:00", aqi: 185, pm25: 102, no2: 60, o3: 16, label: "Ring Road Rush" },
+      { hour: "07:00", aqi: 198, pm25: 112, no2: 74, o3: 18, label: "Morning Commute" },
+      { hour: "08:00", aqi: 192, pm25: 108, no2: 72, o3: 22, label: "Commute Spike" },
+      { hour: "09:00", aqi: 174, pm25: 94, no2: 60, o3: 28, label: "Solar Elevation Rises" },
+      { hour: "10:00", aqi: 155, pm25: 78, no2: 48, o3: 35, label: "Gradual Clearing" },
+      { hour: "11:00", aqi: 138, pm25: 64, no2: 40, o3: 40, label: "Northerly Breeze Flow" },
+      { hour: "12:00", aqi: 125, pm25: 54, no2: 34, o3: 44, label: "Lowest Daily Period" },
+      { hour: "13:00", aqi: 118, pm25: 49, no2: 30, o3: 46, label: "Lowest Daily PM2.5" },
+      { hour: "14:00", aqi: 122, pm25: 52, no2: 32, o3: 45, label: "Solar Convection Window" },
+      { hour: "15:00", aqi: 135, pm25: 62, no2: 38, o3: 40, label: "Boundary Lowering" },
+      { hour: "16:00", aqi: 152, pm25: 75, no2: 50, o3: 34, label: "Ring Road Rush" },
+      { hour: "17:00", aqi: 172, pm25: 92, no2: 68, o3: 28, label: "Evening Peak" },
+      { hour: "18:00", aqi: 185, pm25: 103, no2: 75, o3: 22, label: "Evening Peak" },
+      { hour: "19:00", aqi: 182, pm25: 100, no2: 68, o3: 18, label: "Nocturnal Cooling" },
+      { hour: "20:00", aqi: 174, pm25: 94, no2: 58, o3: 16, label: "Trapped Emissions" },
+      { hour: "21:00", aqi: 170, pm25: 90, no2: 52, o3: 15, label: "Trapped Emissions" },
+      { hour: "22:00", aqi: 168, pm25: 88, no2: 48, o3: 15, label: "Late Traffic" },
+      { hour: "23:00", aqi: 172, pm25: 92, no2: 46, o3: 15, label: "Inversion Beginning" }
+    ],
+    diurnalAnalysis: "The surrounding Yan and Taihang mountains act as a natural topographical barrier. Midday convective heating (12:00 - 2:30 PM) expands vertical mixing, offering the lowest ambient PM2.5 concentrations of the 24-hour cycle.",
+    ventilationTimingNote: "Midday brief flushing (12:30 - 2:00 PM) is most effective, followed by continuous indoor filtration."
+  },
+
+  paris: {
+    id: "paris",
+    name: "Paris",
+    country: "France",
+    region: "Île-de-France",
+    climate: "Oceanic Mild",
+    coords: { lat: 48.8566, lng: 2.3522 },
+    defaultZoom: 11,
+    aqi: 54,
+    status: "Moderate",
+    primaryPollutant: "PM10 & NO2",
+    dataSource: "Airparif Monitoring Network (Sample Benchmark)",
+    lastUpdated: "Simulated Diurnal Telemetry (Nov 2026)",
+    pollutants: {
+      pm25: 12,
+      pm10: 22,
+      no2: 32,
+      o3: 26,
+      co: 0.3,
+      so2: 2
+    },
+    weather: {
+      temp: 18,
+      humidity: 58,
+      windSpeed: 12.0,
+      windDirection: "W",
+      condition: "Partly Cloudy",
+      inversionRisk: "Low"
+    },
+    sources: [
+      { name: "Périphérique & Urban Traffic", percentage: 48 },
+      { name: "Residential Heating & Buildings", percentage: 26 },
+      { name: "Regional Agricultural Inflow", percentage: 16 },
+      { name: "River & Aviation Transport", percentage: 10 }
+    ],
+    stations: [
+      {
+        id: "par-place-italie",
+        name: "Place d'Italie",
+        area: "13e Arrondissement",
+        lat: 48.8315,
+        lng: 2.3556,
+        aqi: 58,
+        status: "Moderate",
+        primaryPollutant: "NO2",
+        pm25: 14,
+        pm10: 24,
+        no2: 36,
+        stationType: "Urban Traffic Intersection",
+        dataSource: "Airparif Station #13 (Sample Benchmark)"
+      },
+      {
+        id: "par-peripherique",
+        name: "Bd Périphérique Est",
+        area: "Porte de Bagnolet",
+        lat: 48.8682,
+        lng: 2.4150,
+        aqi: 72,
+        status: "Moderate",
+        primaryPollutant: "PM10 & NO2",
+        pm25: 18,
+        pm10: 32,
+        no2: 48,
+        stationType: "Highway Ring Road",
+        dataSource: "Airparif Station #20 (Sample Benchmark)"
+      },
+      {
+        id: "par-montsouris",
+        name: "Parc Montsouris",
+        area: "14e Arrondissement",
+        lat: 48.8222,
+        lng: 2.3381,
+        aqi: 45,
+        status: "Good",
+        primaryPollutant: "Ozone (O3)",
+        pm25: 9,
+        pm10: 16,
+        no2: 20,
+        stationType: "Urban Park Background",
+        dataSource: "Airparif Station #14 (Sample Benchmark)"
+      },
+      {
+        id: "par-halles",
+        name: "Les Halles - Châtelet",
+        area: "1er Arrondissement",
+        lat: 48.8620,
+        lng: 2.3450,
+        aqi: 52,
+        status: "Moderate",
+        primaryPollutant: "NO2",
+        pm25: 11,
+        pm10: 20,
+        no2: 30,
+        stationType: "Pedestrianized Core",
+        dataSource: "Airparif Station #01 (Sample Benchmark)"
+      },
+      {
+        id: "par-neuilly",
+        name: "Neuilly-sur-Seine",
+        area: "Western Suburbs",
+        lat: 48.8847,
+        lng: 2.2690,
+        aqi: 50,
+        status: "Good",
+        primaryPollutant: "PM2.5",
+        pm25: 10,
+        pm10: 19,
+        no2: 28,
+        stationType: "Suburban Commercial",
+        dataSource: "Airparif Station #92 (Sample Benchmark)"
+      }
+    ],
+    hourly: [
+      { hour: "00:00", aqi: 38, pm25: 8, no2: 16, o3: 22, label: "Good" },
+      { hour: "01:00", aqi: 35, pm25: 7, no2: 14, o3: 23, label: "Good" },
+      { hour: "02:00", aqi: 32, pm25: 6, no2: 12, o3: 24, label: "Clean Baseline" },
+      { hour: "03:00", aqi: 32, pm25: 6, no2: 12, o3: 24, label: "Clean Baseline" },
+      { hour: "04:00", aqi: 36, pm25: 7, no2: 15, o3: 23, label: "Clean Baseline" },
+      { hour: "05:00", aqi: 42, pm25: 9, no2: 22, o3: 22, label: "Early Fleet Commute" },
+      { hour: "06:00", aqi: 54, pm25: 12, no2: 32, o3: 20, label: "Périphérique Inflow" },
+      { hour: "07:00", aqi: 68, pm25: 16, no2: 44, o3: 18, label: "Morning Commute" },
+      { hour: "08:00", aqi: 72, pm25: 18, no2: 48, o3: 18, label: "Morning Peak" },
+      { hour: "09:00", aqi: 65, pm25: 15, no2: 40, o3: 22, label: "Easing" },
+      { hour: "10:00", aqi: 55, pm25: 12, no2: 32, o3: 26, label: "Moderate" },
+      { hour: "11:00", aqi: 48, pm25: 10, no2: 26, o3: 30, label: "Good Dilution" },
+      { hour: "12:00", aqi: 44, pm25: 9, no2: 22, o3: 32, label: "Cleanest Window" },
+      { hour: "13:00", aqi: 42, pm25: 8, no2: 20, o3: 33, label: "Cleanest Window" },
+      { hour: "14:00", aqi: 45, pm25: 9, no2: 22, o3: 32, label: "Good" },
+      { hour: "15:00", aqi: 50, pm25: 11, no2: 26, o3: 30, label: "Moderate" },
+      { hour: "16:00", aqi: 58, pm25: 13, no2: 34, o3: 27, label: "School Pickup" },
+      { hour: "17:00", aqi: 66, pm25: 16, no2: 42, o3: 24, label: "Evening Rush" },
+      { hour: "18:00", aqi: 70, pm25: 17, no2: 46, o3: 22, label: "Evening Peak" },
+      { hour: "19:00", aqi: 60, pm25: 14, no2: 36, o3: 22, label: "Easing" },
+      { hour: "20:00", aqi: 50, pm25: 11, no2: 28, o3: 23, label: "Good" },
+      { hour: "21:00", aqi: 44, pm25: 10, no2: 22, o3: 23, label: "Good" },
+      { hour: "22:00", aqi: 40, pm25: 9, no2: 18, o3: 22, label: "Good" },
+      { hour: "23:00", aqi: 38, pm25: 8, no2: 17, o3: 22, label: "Good" }
+    ],
+    diurnalAnalysis: "Protected bicycle infrastructure along the Seine and pedestrianized zones show substantially lower black carbon and NO2 levels than the Boulevard Périphérique ring corridor.",
+    ventilationTimingNote: "Midday (11:00 AM - 3:00 PM) offers favorable atmospheric exchange for residential cross-ventilation."
+  },
+
+  jakarta: {
+    id: "jakarta",
+    name: "Jakarta",
+    country: "Indonesia",
+    region: "Java Coast",
+    climate: "Tropical Monsoon",
+    coords: { lat: -6.2088, lng: 106.8456 },
+    defaultZoom: 11,
+    aqi: 158,
+    status: "Unhealthy",
+    primaryPollutant: "PM2.5",
+    dataSource: "DKI Jakarta Environmental Agency (DLH) (Sample Benchmark)",
+    lastUpdated: "Simulated Diurnal Telemetry (Nov 2026)",
+    pollutants: {
+      pm25: 72,
+      pm10: 112,
+      no2: 46,
+      o3: 34,
+      co: 1.6,
+      so2: 14
+    },
+    weather: {
+      temp: 31,
+      humidity: 82,
+      windSpeed: 5.4,
+      windDirection: "N",
+      condition: "Humid Haze",
+      inversionRisk: "Moderate (tropical stagnation and humidity-induced aerosol swelling)"
+    },
+    sources: [
+      { name: "Motorcycles & Congested Road Traffic", percentage: 46 },
+      { name: "Regional Coal-Fired Energy", percentage: 28 },
+      { name: "Open Waste Burning & Small Workshops", percentage: 14 },
+      { name: "Port Logistics & Industrial Sites", percentage: 12 }
+    ],
+    stations: [
+      {
+        id: "jkt-bundaran-hi",
+        name: "Bundaran HI",
+        area: "Central Jakarta",
+        lat: -6.1950,
+        lng: 106.8230,
+        aqi: 162,
+        status: "Unhealthy",
+        primaryPollutant: "PM2.5",
+        pm25: 76,
+        pm10: 118,
+        no2: 48,
+        stationType: "Arterial Transit & Commercial",
+        dataSource: "DLH DKI Jakarta (Sample Benchmark)"
+      },
+      {
+        id: "jkt-gbk",
+        name: "Gelora Bung Karno",
+        area: "Senayan, South Jakarta",
+        lat: -6.2185,
+        lng: 106.8025,
+        aqi: 142,
+        status: "Unhealthy for Sensitive Groups",
+        primaryPollutant: "PM2.5",
+        pm25: 62,
+        pm10: 98,
+        no2: 36,
+        stationType: "Urban Sports Complex & Greenery",
+        dataSource: "DLH DKI Jakarta (Sample Benchmark)"
+      },
+      {
+        id: "jkt-kelapa-gading",
+        name: "Kelapa Gading",
+        area: "North Jakarta",
+        lat: -6.1600,
+        lng: 106.9050,
+        aqi: 175,
+        status: "Unhealthy",
+        primaryPollutant: "PM2.5",
+        pm25: 86,
+        pm10: 135,
+        no2: 56,
+        stationType: "Mixed Commercial & Industrial Proximity",
+        dataSource: "DLH DKI Jakarta (Sample Benchmark)"
+      },
+      {
+        id: "jkt-kebayoran",
+        name: "Kebayoran Baru",
+        area: "South Jakarta",
+        lat: -6.2440,
+        lng: 106.8010,
+        aqi: 150,
+        status: "Unhealthy for Sensitive Groups",
+        primaryPollutant: "PM2.5",
+        pm25: 68,
+        pm10: 106,
+        no2: 42,
+        stationType: "Residential & Commercial",
+        dataSource: "DLH DKI Jakarta (Sample Benchmark)"
+      },
+      {
+        id: "jkt-rawamangun",
+        name: "Rawamangun",
+        area: "East Jakarta",
+        lat: -6.1940,
+        lng: 106.8830,
+        aqi: 168,
+        status: "Unhealthy",
+        primaryPollutant: "PM2.5",
+        pm25: 80,
+        pm10: 125,
+        no2: 52,
+        stationType: "Transit Corridor & Bus Terminal",
+        dataSource: "DLH DKI Jakarta (Sample Benchmark)"
+      }
+    ],
+    hourly: [
+      { hour: "00:00", aqi: 142, pm25: 58, no2: 36, o3: 16, label: "Humid Night Stagnation" },
+      { hour: "01:00", aqi: 146, pm25: 61, no2: 34, o3: 15, label: "Humid Night" },
+      { hour: "02:00", aqi: 150, pm25: 64, no2: 32, o3: 14, label: "Night Stagnation" },
+      { hour: "03:00", aqi: 152, pm25: 66, no2: 30, o3: 13, label: "Night Stagnation" },
+      { hour: "04:00", aqi: 155, pm25: 68, no2: 35, o3: 14, label: "Early Commuters" },
+      { hour: "05:00", aqi: 165, pm25: 76, no2: 48, o3: 16, label: "Motorcycle Surge" },
+      { hour: "06:00", aqi: 178, pm25: 88, no2: 62, o3: 19, label: "Morning Commute Spike" },
+      { hour: "07:00", aqi: 184, pm25: 94, no2: 68, o3: 24, label: "Peak Congestion" },
+      { hour: "08:00", aqi: 176, pm25: 86, no2: 64, o3: 30, label: "Morning Traffic Peak" },
+      { hour: "09:00", aqi: 162, pm25: 75, no2: 52, o3: 38, label: "Solar Warming Lift" },
+      { hour: "10:00", aqi: 148, pm25: 63, no2: 42, o3: 45, label: "Convective Dilution" },
+      { hour: "11:00", aqi: 136, pm25: 54, no2: 36, o3: 50, label: "Midday Window" },
+      { hour: "12:00", aqi: 128, pm25: 48, no2: 32, o3: 52, label: "Lowest Day Period" },
+      { hour: "13:00", aqi: 124, pm25: 46, no2: 30, o3: 50, label: "Lowest Daily PM2.5" },
+      { hour: "14:00", aqi: 132, pm25: 51, no2: 34, o3: 46, label: "Afternoon Buildup" },
+      { hour: "15:00", aqi: 144, pm25: 60, no2: 42, o3: 40, label: "Pre-Rush Transition" },
+      { hour: "16:00", aqi: 160, pm25: 73, no2: 54, o3: 34, label: "Evening Rush Hour" },
+      { hour: "17:00", aqi: 175, pm25: 85, no2: 66, o3: 28, label: "Peak Congestion" },
+      { hour: "18:00", aqi: 179, pm25: 89, no2: 68, o3: 22, label: "Evening Stagnation" },
+      { hour: "19:00", aqi: 168, pm25: 80, no2: 58, o3: 18, label: "Post-Rush Cooling" },
+      { hour: "20:00", aqi: 156, pm25: 70, no2: 48, o3: 16, label: "Humid Night" },
+      { hour: "21:00", aqi: 148, pm25: 64, no2: 42, o3: 15, label: "Humid Night" },
+      { hour: "22:00", aqi: 144, pm25: 60, no2: 39, o3: 15, label: "Night Baseline" },
+      { hour: "23:00", aqi: 140, pm25: 57, no2: 37, o3: 16, label: "Night Baseline" }
+    ],
+    diurnalAnalysis: "High tropical relative humidity (>80%) accelerates hygroscopic growth of fine particulates, causing aerosol swelling. Commuter rail and filtered transit cabins reduce micro-exposure substantially compared to open two-wheeler transit in congested corridors.",
+    ventilationTimingNote: "Midday hours (12:00 - 1:30 PM) offer temporary convective relief; keep roadside windows closed during commute rush hours."
+  }
+};
+
+export const USER_PERSONAS = {
+  general: {
+    id: "general",
+    label: "General Adult",
+    description: "Standard adult physiology with standard WHO baseline guidelines.",
+    icon: "user",
+    breathingMultiplier: 1.0,
+    aqiWarningThreshold: 150,
+    healthFocus: "Cumulative cardiovascular risk, oxidative cellular stress, and cognitive performance."
+  },
+  child: {
+    id: "child",
+    label: "Child / Parent",
+    description: "Children inhale up to 50% more air per kg of body weight than adults and have developing respiratory airways.",
+    icon: "child",
+    breathingMultiplier: 1.35,
+    aqiWarningThreshold: 100,
+    healthFocus: "Developing lung tissue, school travel exposure, and pediatric asthma prevention."
+  },
+  sensitive: {
+    id: "sensitive",
+    label: "Asthmatic / Senior",
+    description: "Elevated bronchial sensitivity or pre-existing cardiopulmonary considerations.",
+    icon: "heart-pulse",
+    breathingMultiplier: 1.15,
+    aqiWarningThreshold: 75,
+    healthFocus: "Immediate airway irritation prevention, micro-particle filtration, and resting nighttime air purity."
+  },
+  athlete: {
+    id: "athlete",
+    label: "Outdoor Athlete",
+    description: "High-minute oral ventilation (4-6x baseline) bypasses nasal filtration and deposits particles deep into alveoli.",
+    icon: "running",
+    breathingMultiplier: 2.8,
+    aqiWarningThreshold: 100,
+    healthFocus: "Deep lung particulate deposition and training schedule alignment with diurnal lows."
+  }
+};
+
+
+// Dynamic Regional Demo Station Generator
+// Used when user searches any location (city or state) outside built-in benchmarks
+export function generateRegionalDemoStations(centerLat, centerLng, placeName, locationType = 'city') {
+  const isState = locationType === 'state' || locationType === 'country';
+  const scale = isState ? 1.4 : 0.045;
+
+  const archetypes = [
+    {
+      suffix: "Botanical Sanctuary & Reserve",
+      type: "High Ecological / Protected Baseline",
+      aqiRange: [28, 48], // Good
+      pollutant: "PM2.5",
+      dx: -0.65 * scale,
+      dy: 0.55 * scale
+    },
+    {
+      suffix: "University Eco-Campus",
+      type: "Institutional Green Canopy",
+      aqiRange: [58, 78], // Satisfactory
+      pollutant: "PM2.5",
+      dx: 0.55 * scale,
+      dy: 0.45 * scale
+    },
+    {
+      suffix: "Residential Green Suburb",
+      type: "Urban Residential Background",
+      aqiRange: [82, 98], // Satisfactory
+      pollutant: "PM2.5",
+      dx: -0.45 * scale,
+      dy: -0.42 * scale
+    },
+    {
+      suffix: "Central Commercial Civic Center",
+      type: "High-Density Commercial & Retail",
+      aqiRange: [128, 168], // Moderate
+      pollutant: "PM10",
+      dx: 0.08 * scale,
+      dy: 0.08 * scale
+    },
+    {
+      suffix: "Intercity Transit Hub & Bus Terminal",
+      type: "Diesel Transit Corridor & Bus Canyon",
+      aqiRange: [215, 275], // Poor
+      pollutant: "NO2",
+      dx: 0.35 * scale,
+      dy: -0.32 * scale
+    },
+    {
+      suffix: "Industrial Manufacturing Zone",
+      type: "Heavy Industrial & Freight Bypass",
+      aqiRange: [315, 385], // Very Poor
+      pollutant: "PM2.5",
+      dx: -0.25 * scale,
+      dy: 0.75 * scale
+    }
+  ];
+
+  return archetypes.map((arch, index) => {
+    const aqi = Math.round(arch.aqiRange[0] + Math.random() * (arch.aqiRange[1] - arch.aqiRange[0]));
+    const pm25 = Math.round(aqi * 0.62);
+    const pm10 = Math.round(pm25 * 1.55);
+    const no2 = Math.round(18 + aqi * 0.24);
+
+    let status = "Good";
+    if (aqi > 400) status = "Severe";
+    else if (aqi > 300) status = "Very Poor";
+    else if (aqi > 200) status = "Poor";
+    else if (aqi > 100) status = "Moderate";
+    else if (aqi > 50) status = "Satisfactory";
+
+    return {
+      id: `demo-${index}-${placeName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`,
+      name: `${placeName} — ${arch.suffix}`,
+      area: `${placeName} Region`,
+      lat: Number((centerLat + arch.dy).toFixed(5)),
+      lng: Number((centerLng + arch.dx).toFixed(5)),
+      aqi,
+      status,
+      primaryPollutant: arch.pollutant,
+      pm25,
+      pm10,
+      no2,
+      stationType: arch.type,
+      dataSource: "CPCB Continuous Monitoring (DEMO Station — Sample Benchmark Data)",
+      isDemo: true
+    };
+  });
+}
